@@ -274,6 +274,7 @@ public class ContextParameterProcessor {
     } else {
       context.put("scmInfo", null);
     }
+    System.out.println("orca.precomputeValues context: " + context);
 
     return context;
   }

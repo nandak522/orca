@@ -45,7 +45,9 @@ public class V2Util {
             .filter(p -> p.supports(finalPipeline, ExecutionPreprocessor.Type.PIPELINE))
             .collect(Collectors.toList());
     for (ExecutionPreprocessor pp : preprocessors) {
+      System.out.println("orca.planPipeline pipeline before: " + pipeline);
       pipeline = pp.process(pipeline);
+      System.out.println("orca.planPipeline pipeline after: " + pipeline);
     }
 
     List<Map<String, Object>> pipelineErrors = (List<Map<String, Object>>) pipeline.get("errors");
@@ -58,8 +60,10 @@ public class V2Util {
     augmentedContext.put(
         "templateVariables", pipeline.getOrDefault("templateVariables", Collections.EMPTY_MAP));
 
+    System.out.println("orca.planPipeline augmentedContext: " + augmentedContext);
     Map<String, Object> spelEvaluatedPipeline =
         contextParameterProcessor.processPipeline(pipeline, augmentedContext, true);
+    System.out.println("orca.planPipeline spelEvaluatedPipeline: " + spelEvaluatedPipeline);
 
     Map<String, Object> expressionEvalSummary =
         (Map<String, Object>) spelEvaluatedPipeline.get(PipelineExpressionEvaluator.SUMMARY);
