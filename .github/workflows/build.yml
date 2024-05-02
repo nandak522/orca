@@ -3,8 +3,9 @@ name: Branch Build
 on:
   push:
     branches:
-    - master
-    - release-*
+    # - master
+    # - release-*
+    - validate-pt-plan
 
 env:
   GRADLE_OPTS: -Dorg.gradle.daemon=false -Xmx6g -Xms6g
