@@ -71,15 +71,15 @@ include "orca-api",
   "orca-validation",
   "orca-web",
   "orca-webhook",
-  // "keiko-core",
-  // "keiko-mem",
-  // "keiko-mem-spring",
-  // "keiko-redis",
-  // "keiko-redis-spring",
-  // "keiko-spring",
-  // "keiko-sql",
-  // "keiko-tck",
-  // "keiko-test-common"
+  "keiko-core",
+  "keiko-mem",
+  "keiko-mem-spring",
+  "keiko-redis",
+  "keiko-redis-spring",
+  "keiko-spring",
+  "keiko-sql",
+  "keiko-tck",
+  "keiko-test-common"
 
 rootProject.name = "orca"
 
