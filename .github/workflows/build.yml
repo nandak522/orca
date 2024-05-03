@@ -14,7 +14,7 @@ env:
 jobs:
   branch-build:
     # Only run this on repositories in the 'spinnaker' org, not on forks.
-    if: startsWith(github.repository, 'nandak522/')
+    # if: startsWith(github.repository, 'nandak522/')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -35,14 +35,14 @@ jobs:
         id: build_variables
         run: |
           echo REPO="${GITHUB_REPOSITORY##*/}" >> $GITHUB_OUTPUT
-          echo VERSION="$(git describe --tags --abbrev=0 --match='v[0-9]*' | cut -c2-)-dev-${GITHUB_REF_NAME}-$(git rev-parse --short HEAD)-$(date --utc +'%Y%m%d%H%M')" >> $GITHUB_OUTPUT
+          echo VERSION="dev-${GITHUB_REF_NAME}-$(git rev-parse --short HEAD)-$(date --utc +'%Y%m%d%H%M')" >> $GITHUB_OUTPUT
       - name: Build
         env:
           ORG_GRADLE_PROJECT_version: ${{ steps.build_variables.outputs.VERSION }}
         run: ./gradlew build --stacktrace ${{ steps.build_variables.outputs.REPO }}-web:installDist
       - name: Login to GAR
         # Only run this on repositories in the 'spinnaker' org, not on forks.
-        if: startsWith(github.repository, 'nandak522/')
+        # if: startsWith(github.repository, 'nandak522/')
         uses: docker/login-action@v3
         # use service account flow defined at: https://github.com/docker/login-action#service-account-based-authentication-1
         with:
@@ -50,7 +50,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Build and publish slim container image
         # Only run this on repositories in the 'spinnaker' org, not on forks.
-        if: startsWith(github.repository, 'nandak522/')
+        # if: startsWith(github.repository, 'nandak522/')
         uses: docker/build-push-action@v5
         with:
           context: .
